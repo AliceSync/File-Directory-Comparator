@@ -9,8 +9,10 @@ function can_dir($_dir)
 {
     $_arr = scandir($_dir);
     $_ret = [];
-    unset($_arr[0], $_arr[1]);
     foreach ($_arr as $_sub_object) {
+        if ($_sub_object == '.' || $_sub_object == '..') {
+            continue;
+        }
         if (is_dir($_dir  . DIRECTORY_SEPARATOR . $_sub_object)) {
             $_ret   = array_merge($_ret, can_dir($_dir  . DIRECTORY_SEPARATOR . $_sub_object));
         } elseif (is_file($_dir  . DIRECTORY_SEPARATOR . $_sub_object)) {
